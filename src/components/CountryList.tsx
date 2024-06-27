@@ -5,7 +5,7 @@ import CountryCard from "./CountryCard";
 
 const CountryList: React.FC = () => {
   const [countries, setCountries] = React.useState<Country[]>([]);
-  const [selectedCountries, setSelectedCountris] = React.useState<Country[]>(
+  const [selectedCountries, setSelectedCountries] = React.useState<Country[]>(
     []
   );
   const [error, setError] = React.useState<string | null>(null);
@@ -16,11 +16,10 @@ const CountryList: React.FC = () => {
         const data: Country[] = await getCountries();
         setCountries(data);
       } catch (error) {
-        console.error("국가 정보를 불러오는데 실패했습니다.", error);
+        console.error("Failed to fetch country information.", error);
         setError(
-          "국가 정보를 불러오는데 실패했습니다. 나중에 다시 시도해 주세요"
+          "Failed to fetch country information. Please try again later."
         );
-        // alert(error);
       }
     };
     fetchCountries();
@@ -33,9 +32,9 @@ const CountryList: React.FC = () => {
           selectedCountry.name.common === country.name.common
       )
     ) {
-      setSelectedCountris([...selectedCountries, country]);
+      setSelectedCountries([...selectedCountries, country]);
     } else {
-      setSelectedCountris(
+      setSelectedCountries(
         selectedCountries.filter(
           (selectedCountry: Country) =>
             selectedCountry.name.common !== country.name.common
@@ -45,10 +44,12 @@ const CountryList: React.FC = () => {
   };
 
   return (
-    <>
-      {error && <p className="error">{error}</p>}
-      <h1>선택된 목록</h1>
-      <div>
+    <div className="p-4">
+      {error && <p className="text-red-500">{error}</p>}
+      <h1 className="text-3xl font-extrabold mb-10 text-center">
+        Selected Countries
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-4 gap-x-6 mb-10">
         {selectedCountries.map((country: Country) => {
           return (
             <CountryCard
@@ -59,8 +60,10 @@ const CountryList: React.FC = () => {
           );
         })}
       </div>
-      <h1>나라 목록</h1>
-      <div>
+      <h1 className="text-3xl font-extrabold mb-10 text-center">
+        Country List
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-4 gap-x-6">
         {countries.map((country: Country) => {
           return (
             <CountryCard
@@ -71,7 +74,7 @@ const CountryList: React.FC = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
