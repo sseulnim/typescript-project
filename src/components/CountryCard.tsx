@@ -5,10 +5,7 @@ interface CountryCardProps {
   handleSelectCountry: (country: Country) => void;
 }
 
-const CountryCard: React.FC<CountryCardProps> = ({
-  country,
-  handleSelectCountry,
-}) => {
+const CountryCard = ({ country, handleSelectCountry }: CountryCardProps) => {
   return (
     <div
       onClick={() => handleSelectCountry(country)}
